@@ -1,0 +1,41 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+</head>
+<body class="MyBlog">
+<header class="MyBlog-header">
+    <nav class="MyBlog-menu">
+        <ul>
+            <li class=""><a href="/">
+                <svg class="icon icon-b" aria-hidden="true">
+                    <use xlink:href="#icon-sailboat"></use>
+                </svg>
+                Banner</a></li>
+            <li class="{% block shouye_active %}{% endblock %}"><a href="/">
+                <svg class="icon icon-sy" aria-hidden="true">
+                    <use xlink:href="#icon-shouye"></use>
+                </svg>
+                HOME</a></li>
+            <li class="{% block blog_active %}{% endblock %}"><a href="/blog/">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-weibiaoti1"></use>
+                </svg>
+                Blog</a></li>
+        </ul>
+    </nav>
+</header>
+    <main class="MyBlog-container">
+        {% block content %}{% endblock %}
+    </main>
+<footer class="MyBlog-footer"><span class="MyBlog-footer-info">Proudly making wheel using Django &copy;2018</span></footer>
+
+<script src="http://at.alicdn.com/t/font_571117_qoihcxo26i4cmcxr.js"></script>
+</body>
+</html>
+
+
