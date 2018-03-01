@@ -6,19 +6,22 @@
 {% endblock %}
 
 {% block shouye_active %}active{% endblock %}
-<!--{% block banner_active %}active{% endblock %}-->
 
 
 {% block content %}
+{% for poem in poem_list %}
 <article class="Myblog-home-poem">
-<h5>苔</h5>
+<h5>{{poem.title}}</h5>
 
-<p>“白日不到处，青春恰自来。<br>
-
-苔花如米小，也学牡丹开。”
+<p>"{{poem.content|safe}}"
 
 </p>
 
-<span>清·袁枚</span><br>
+<span>{{poem.author}}</span><br>
     </article>
+    {% endfor %}
+
+<section>
+    <p>{{ read_nums }}</p>
+</section>
 {% endblock %}

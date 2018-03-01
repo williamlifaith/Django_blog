@@ -8,13 +8,14 @@
 
 {% block content %}
 
-<section class="Myblog-container-left">
+<section class="Myblog-main-left">
 </section>
-<section class="Myblog-container-middle">
+<section class="Myblog-main-middle">
     <article class="MyBlog-list">
         <div class="MyBlog-list-body">
             <h1 class="MyBlog-list-body_title">{{ blog.title}}</h1>
             <!--<p>作者：{{ blog.author }}</p>-->
+            <div class="MyBlog-list-body_info">
             <span class="MyBlog-list-body_date"><svg class="icon icon-sz" aria-hidden="true">
                     <use xlink:href="#icon-shizhong1"></use>
                 </svg>{{blog.created_time|date:'m-d-Y'}}</span>
@@ -22,9 +23,10 @@
                     <use xlink:href="#icon-2"></use>
                 </svg><a href="{% url 'blogs_with_type'  blog.blog_type.pk %}">{{ blog.blog_type }}</a></span>
             <span class="MyBlog-list-body_views"><svg class="icon icon-bq" aria-hidden="true">
-                    <use xlink:href="#icon-view"></use>
-                </svg></span>
-            <p class="MyBlog-list-body_content">{{ blog.content }}</p>
+                    <use xlink:href="#icon-icon-test"></use>
+                </svg>{{blog.get_read_num}}</span>
+            </div>
+            <p class="MyBlog-list-body_content">{{ blog.content|safe }}</p>
         </div>
     </article>
     <div class="blog-more">
@@ -45,9 +47,9 @@
     </div>
 </section>
 
-<section class="Myblog-container-right">
-    <div class="Myblog-container-right_type">
-    <div class="Myblog-container-right_tag"><span>Categories:</span></div>
+<section class="Myblog-main-right">
+    <div class="Myblog-main-right_type">
+    <div class="Myblog-main-right_tag"><span>Categories:</span></div>
     <ul>
         {% for blog_type in blog_types %}
         <li><a href="{% url 'blogs_with_type' blog_type.pk %}">
@@ -58,8 +60,8 @@
         {% endfor %}
     </ul>
         </div>
-             <div class="Myblog-container-right_date">
-    <div class="Myblog-container-right_tag"><span>Date:</span></div>
+             <div class="Myblog-main-right_date">
+    <div class="Myblog-main-right_tag"><span>Date:</span></div>
     <ul>
         {% for blog_date in blog_dates %}
         <li><a href="{% url 'blogs_with_date' blog_date.year blog_date.month %}">

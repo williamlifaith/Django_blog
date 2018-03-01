@@ -8,82 +8,86 @@ Homepage
 
 {% block content %}
 
-<section class="Myblog-container-left">
+<section class="Myblog-main-left">
 
 </section>
 
-<section class="Myblog-container-middle">
-{% for blog in blogs_list %}
-<article class="MyBlog-list">
-    <div class="MyBlog-list-body">
-        <a href="{% url 'blog_detail' blog.pk %}"><h1 class="MyBlog-list-body_title">{{ blog.title }}</h1></a>
-        <p class="MyBlog-list-body_content">{{ blog.content|truncatechars:70 }}</p>
-        <span class="MyBlog-list-body_date">
+<section class="Myblog-main-middle">
+    {% for blog in blogs_list %}
+    <article class="MyBlog-list">
+        <div class="MyBlog-list-body">
+            <a href="{% url 'blog_detail' blog.pk %}"><h1 class="MyBlog-list-body_title">{{ blog.title }}</h1></a>
+            <p class="MyBlog-list-body_content">{{ blog.content|striptags|truncatechars:70 }}</p>
+
+           <div class="MyBlog-list-body_info">
+            <span class="MyBlog-list-body_date">
             <svg class="icon icon-sz" aria-hidden="true">
                     <use xlink:href="#icon-shizhong1"></use>
                 </svg>{{blog.created_time|date:'m-d-Y'}}</span>
-        <span class="MyBlog-list-body_type"><svg class="icon icon-bq" aria-hidden="true">
+            <span class="MyBlog-list-body_type"><svg class="icon icon-bq" aria-hidden="true">
                     <use xlink:href="#icon-2"></use>
                 </svg><a href="{% url 'blogs_with_type'  blog.blog_type.pk %}">
             {{ blog.blog_type }}</a></span>
-        <span class="MyBlog-list-body_views">view:</span>
-    </div>
-</article>
+            <span class="MyBlog-list-body_views"><svg class="icon icon-bq" aria-hidden="true">
+                    <use xlink:href="#icon-icon-test"></use>
+                </svg>({{blog.get_read_num}})</span>
+            </div>
+        </div>
+    </article>
 
-{% empty %}
-<p>--哦哦 已经到头了--</p>
-{% endfor %}
+    {% empty %}
+    <p>--哦哦 已经到头了--</p>
+    {% endfor %}
     <div class="article-number"><span>共{{ blogs_list.paginator.num_pages}}页{{ blogs_list.paginator.count}}篇</span></div>
-<div class="pageturn">
-    <ul class="pagelist">
-        {# 存在上一页 #}
-        {% if blogs_list.has_previous %}
-        <li class="long"><a href="?page={{ blogs_list.previous_page_number}}">上一页</a></li>
-        {% endif %}
-        {% for page_num in blogs_list.paginator.page_range %}
-        {% if page_num == blogs_list.number %}
-        <li class="page-active"><span>{{page_num}}</span></li>
-        {% else %}
-        <li><a href="?page={{page_num}}">{{page_num}}</a></li>
-        {% endif %}
-        {% endfor %}
+    <div class="pageturn">
+        <ul class="pagelist">
+            {# 存在上一页 #}
+            {% if blogs_list.has_previous %}
+            <li class="long"><a href="?page={{ blogs_list.previous_page_number}}">上一页</a></li>
+            {% endif %}
+            {% for page_num in blogs_list.paginator.page_range %}
+            {% if page_num == blogs_list.number %}
+            <li class="page-active"><span>{{page_num}}</span></li>
+            {% else %}
+            <li><a href="?page={{page_num}}">{{page_num}}</a></li>
+            {% endif %}
+            {% endfor %}
+            {# 存在下一页 #}
+            {% if blogs_list.has_next %}
+            <li class="long"><a href="?page={{ blogs_list.next_page_number}}">下一页</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</section>
 
-        {# 存在下一页 #}
-        {% if blogs_list.has_next %}
-        <li class="long"><a href="?page={{ blogs_list.next_page_number}}">下一页</a></li>
-        {% endif %}
-    </ul>
-</div>
-    </section>
+<section class="Myblog-main-right">
+    <div class="Myblog-main-right_type">
+        <div class="Myblog-main-right_tag"><span>Categories:</span></div>
+        <ul>
+            {% for blog_type in blog_types %}
+            <li><a href="{% url 'blogs_with_type' blog_type.pk %}">
+                {{blog_type.type_name}}({{blog_type.blog_count}})</a>
+            </li>
+            {% empty %}
+            <li>暂无分类</li>
+            {% endfor %}
+        </ul>
+    </div>
 
-<section class="Myblog-container-right">
-    <div class="Myblog-container-right_type">
-    <div class="Myblog-container-right_tag"><span>Categories:</span></div>
-    <ul>
-        {% for blog_type in blog_types %}
-        <li><a href="{% url 'blogs_with_type' blog_type.pk %}">
-            {{blog_type.type_name}}</a>
-    </li>
-        {% empty %}
-        <li>暂无分类</li>
-        {% endfor %}
-    </ul>
-        </div>
-
-         <div class="Myblog-container-right_date">
-    <div class="Myblog-container-right_tag"><span>Date:</span></div>
-    <ul>
-        {% for blog_date in blog_dates %}
-        <li><a href="{% url 'blogs_with_date' blog_date.year blog_date.month %}">
-            {{blog_date|date:"Y年m月"}}
-          <!--{{ blog_date.year }} 年 {{ blog_date.month }} 月-->
-        </a>
-    </li>
-        {% empty %}
-        <li>暂无博客</li>
-        {% endfor %}
-    </ul>
-        </div>
+    <div class="Myblog-main-right_date">
+        <div class="Myblog-main-right_tag"><span>Date:</span></div>
+        <ul>
+            {% for blog_date, blog_count in blog_dates.items %}
+            <li><a href="{% url 'blogs_with_date' blog_date.year blog_date.month %}">
+                {{blog_date|date:"Y年m月"}}（{{blog_count}}）
+                <!--{{ blog_date.year }} 年 {{ blog_date.month }} 月-->
+            </a>
+            </li>
+            {% empty %}
+            <li>暂无博客</li>
+            {% endfor %}
+        </ul>
+    </div>
 
 
 </section>
