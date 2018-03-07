@@ -5,23 +5,114 @@
 我的网站|首页
 {% endblock %}
 
-{% block shouye_active %}active{% endblock %}
+{% block header_extends %}
+<script src="http://cdn.hcharts.cn/highcharts/highcharts.js"></script>
+{% endblock %}
 
+{% block shouye_active %}active{% endblock %}
 
 {% block content %}
 {% for poem in poem_list %}
 <article class="Myblog-home-poem">
-<h5>{{poem.title}}</h5>
+        <div class="Myblog-main-middle-nav article-number">
+            <span>ONE POEM A DAY</span>
+</div>
+    <h5>{{poem.title}}</h5>
 
-<p>"{{poem.content|safe}}"
+    <p>"{{poem.content|safe}}"
 
-</p>
+    </p>
 
-<span>{{poem.author}}</span><br>
-    </article>
-    {% endfor %}
+    <h5>{{poem.author}}</h5><br>
+</article>
+{% endfor %}
 
-<section>
-    <p>{{ read_nums }}</p>
+
+<div id="container" style="width: 400px;height:300px;"></div>
+
+<script>
+        // 图表配置
+        var options = {
+            chart: {
+                type: 'line'                          //指定图表的类型，默认是折线图（line）
+            },
+            title: {
+                text: null              // 标题
+            },
+            xAxis: {
+                categories: {{ dates|safe }},  // x 轴分类
+                tickmarkPlacement:'on',
+                title: {text:'前7日阅读量变化'},
+            },
+            yAxis: {
+                title: {
+                    text: null               // y 轴标题
+                },
+                labels:{enabled:false},
+                gridLineDashStyle:'Dash',
+
+            },
+            series: [{                              // 数据列
+                name: 'Page views',                        // 数据列名
+                data: {{ read_nums }}                    // 数据
+            }],
+            plotOptions: {
+             line: {
+        dataLabels: {
+            enabled: true
+        }
+    }
+},
+            legend: {enabled: false},
+            credits:{enabled: false},
+        };
+        // 图表初始化函数
+        var chart = Highcharts.chart('container', options);
+
+    </script>
+
+<section class="hot_read_data Myblog-main-right">
+    <div class="Myblog-main-right_type">
+     <!-- 今天24小时内的热门博客-->
+    <h1>MOST VIEWED TODAY</h1>
+    <ul>
+        {% for hot_data in today_hot_data %}
+     <li><a href="{% url 'blog_detail' hot_data.content_object.pk %}">
+            <span class="hot_read_data_title">{{ hot_data.content_object.title }}({{ hot_data.read_num }})</span></a></li>
+        {% empty %}
+     <li>今天暂时没有热门博客</li>
+        {% endfor %}
+    </ul>
+    </div>
+
+    <div class="Myblog-main-right_type">
+    <!-- 昨天热门博客-->
+    <h1>MOST VIEWED YESTERDAY</h1>
+    <ul>
+        {% for hot_data in yesterday_hot_data %}
+     <li><a href="{% url 'blog_detail' hot_data.content_object.pk %}">
+            <span class="hot_read_data_title">{{ hot_data.content_object.title }}({{ hot_data.read_num }})</span></a></li>
+        {% empty %}
+     <li>昨天暂时没有热门博客</li>
+        {% endfor %}
+    </ul>
+     </div>
+
+      <div class="Myblog-main-right_type">
+        <!-- 一周热门博客-->
+
+        <h1>MOST VIEWED THIS WEEK</h1>
+    <ul>
+        {% for hot_blog in hot_blogs_for_7_days %}
+     <li><a href="{% url 'blog_detail' hot_blog.id %}">
+            <span class="hot_read_data_title">{{ hot_blog.title }}({{ hot_blog.read_num_sum }})</span></a></li>
+        {% empty %}
+     <li>昨天暂时没有热门博客</li>
+        {% endfor %}
+    </ul>
+      </div>
 </section>
+
 {% endblock %}
+
+

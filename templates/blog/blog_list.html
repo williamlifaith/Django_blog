@@ -8,37 +8,37 @@ Homepage
 
 {% block content %}
 
-<section class="Myblog-main-left">
-
-</section>
 
 <section class="Myblog-main-middle">
+    <div class="Myblog-main-middle-nav article-number">
+        <span>共{{ blogs_list.paginator.num_pages}}页{{ blogs_list.paginator.count}}篇
+    </span>
+</div>
     {% for blog in blogs_list %}
     <article class="MyBlog-list">
         <div class="MyBlog-list-body">
             <a href="{% url 'blog_detail' blog.pk %}"><h1 class="MyBlog-list-body_title">{{ blog.title }}</h1></a>
             <p class="MyBlog-list-body_content">{{ blog.content|striptags|truncatechars:70 }}</p>
-
+             </div>
            <div class="MyBlog-list-body_info">
             <span class="MyBlog-list-body_date">
             <svg class="icon icon-sz" aria-hidden="true">
                     <use xlink:href="#icon-shizhong1"></use>
                 </svg>{{blog.created_time|date:'m-d-Y'}}</span>
-            <span class="MyBlog-list-body_type"><svg class="icon icon-bq" aria-hidden="true">
+            <span class="MyBlog-list-body_type"><svg class="icon icon-type" aria-hidden="true">
                     <use xlink:href="#icon-2"></use>
                 </svg><a href="{% url 'blogs_with_type'  blog.blog_type.pk %}">
             {{ blog.blog_type }}</a></span>
-            <span class="MyBlog-list-body_views"><svg class="icon icon-bq" aria-hidden="true">
-                    <use xlink:href="#icon-icon-test"></use>
-                </svg>({{blog.get_read_num}})</span>
+            <span class="MyBlog-list-body_views"><svg class="icon icon-yanjing" aria-hidden="true">
+                    <use xlink:href="#icon-yanjing"></use>
+                </svg>&nbsp;{{blog.get_read_num}}</span>
             </div>
-        </div>
+
     </article>
 
     {% empty %}
     <p>--哦哦 已经到头了--</p>
     {% endfor %}
-    <div class="article-number"><span>共{{ blogs_list.paginator.num_pages}}页{{ blogs_list.paginator.count}}篇</span></div>
     <div class="pageturn">
         <ul class="pagelist">
             {# 存在上一页 #}
@@ -62,7 +62,6 @@ Homepage
 
 <section class="Myblog-main-right">
     <div class="Myblog-main-right_type">
-        <div class="Myblog-main-right_tag"><span>Categories:</span></div>
         <ul>
             {% for blog_type in blog_types %}
             <li><a href="{% url 'blogs_with_type' blog_type.pk %}">
@@ -75,11 +74,10 @@ Homepage
     </div>
 
     <div class="Myblog-main-right_date">
-        <div class="Myblog-main-right_tag"><span>Date:</span></div>
         <ul>
             {% for blog_date, blog_count in blog_dates.items %}
             <li><a href="{% url 'blogs_with_date' blog_date.year blog_date.month %}">
-                {{blog_date|date:"Y年m月"}}（{{blog_count}}）
+                {{blog_date|date:"m-Y"}}（{{blog_count}}）
                 <!--{{ blog_date.year }} 年 {{ blog_date.month }} 月-->
             </a>
             </li>
@@ -91,7 +89,6 @@ Homepage
 
 
 </section>
-
 {% endblock %}
 
 
