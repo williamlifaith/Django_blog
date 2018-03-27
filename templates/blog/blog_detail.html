@@ -14,15 +14,15 @@
             <h1 class="MyBlog-detail_title">{{ blog.title}}</h1>
             <!--<p>作者：{{ blog.author }}</p>-->
             <div class="MyBlog-detail_info">
-            <span class="MyBlog-detail_date"><svg class="icon icon-sz" aria-hidden="true">
-                    <use xlink:href="#icon-shizhong1"></use>
-                </svg>{{blog.created_time|date:'m-d-Y'}}</span>
-            <span class="MyBlog--detail_type"><svg class="icon icon-bq" aria-hidden="true">
+                <!--发布时间-->
+                <span class="MyBlog-detail_date"> <i class="far fa-calendar-alt"></i> {{blog.created_time|date:'m-d-Y'}}</span>
+                <!--博客种类-->
+                <span class="MyBlog--detail_type"><svg class="icon icon-bq" aria-hidden="true">
                     <use xlink:href="#icon-2"></use>
                 </svg><a href="{% url 'blogs_with_type'  blog.blog_type.pk %}">{{ blog.blog_type }}</a></span>
-            <span class="MyBlog-detail_views"><svg class="icon icon-yanjing" aria-hidden="true">
-                    <use xlink:href="#icon-yanjing"></use>
-                </svg>&nbsp;{{blog.get_read_num}}</span>
+                <!--阅读数-->
+                <span class="MyBlog-detail_views"><i class="fa fa-search" aria-hidden="true"></i>
+{{blog.get_read_num}}</span>
             </div>
 
             <p class="MyBlog-detail_content">{{ blog.content|safe }}</p>
@@ -30,20 +30,20 @@
         </div>
     </article>
     <div class="blog-more">
-    <p class="article-number">Previous:
-        {% if previous_blog %}
-       <a href="{% url 'blog_detail' previous_blog.pk %}">{{ previous_blog.title }}</a>
-    {% else %}
-        No more blog
-        {% endif %}
-    </p>
+        <p class="article-number">Previous:
+            {% if previous_blog %}
+            <a href="{% url 'blog_detail' previous_blog.pk %}">{{ previous_blog.title }}</a>
+            {% else %}
+            No more blog
+            {% endif %}
+        </p>
         <p class="article-number">Next:
-         {% if next_blog %}
-       <a href="{% url 'blog_detail' next_blog.pk %}">{{ next_blog.title }}</a>
-    {% else %}
-        No more blog
-        {% endif %}
-       </p>
+            {% if next_blog %}
+            <a href="{% url 'blog_detail' next_blog.pk %}">{{ next_blog.title }}</a>
+            {% else %}
+            No more blog
+            {% endif %}
+        </p>
     </div>
 </section>
 

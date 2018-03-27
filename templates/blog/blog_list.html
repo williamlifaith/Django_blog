@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Homepage
+Blog|博客页面
 {% endblock %}
 
 {% block blog_active %}active{% endblock %}
@@ -21,21 +21,19 @@ Homepage
             <p class="MyBlog-list-body_content">{{ blog.content|striptags|truncatechars:70 }}</p>
              </div>
            <div class="MyBlog-list-body_info">
+               <!--发布日期-->
             <span class="MyBlog-list-body_date">
-            <svg class="icon icon-sz" aria-hidden="true">
-                    <use xlink:href="#icon-shizhong1"></use>
-                </svg>{{blog.created_time|date:'m-d-Y'}}</span>
+            <i class="far fa-calendar-alt"></i>  {{blog.created_time|date:'m-d-Y'}}</span>
+               <!--文章类型-->
             <span class="MyBlog-list-body_type"><svg class="icon icon-type" aria-hidden="true">
                     <use xlink:href="#icon-2"></use>
                 </svg><a href="{% url 'blogs_with_type'  blog.blog_type.pk %}">
             {{ blog.blog_type }}</a></span>
-            <span class="MyBlog-list-body_views"><svg class="icon icon-yanjing" aria-hidden="true">
-                    <use xlink:href="#icon-yanjing"></use>
-                </svg>&nbsp;{{blog.get_read_num}}</span>
+               <!--阅读数-->
+            <span class="MyBlog-list-body_views"><i class="fa fa-search" aria-hidden="true"></i>
+{{blog.get_read_num}}</span>
             </div>
-
     </article>
-
     {% empty %}
     <p>--哦哦 已经到头了--</p>
     {% endfor %}

@@ -4,6 +4,11 @@
     font-family: 'Lato';
     font-size: 1.1rem;
 }
+
+html,body{ overflow-y:scroll;}
+html,body{ overflow:scroll; min-height:101%;}
+html{ overflow:-moz-scrollbars-vertical;}
+
 .MyBlog-body {
     min-height: 100vh;
     background-color: #EFF0F1;
@@ -35,7 +40,6 @@ padding-top:0.7rem}
     text-decoration: none;
     color: #4c4c4c;
 }
-
 
 .article-number{
   color: grey;
@@ -146,7 +150,7 @@ color:grey
 }
 
 .MyBlog-list{
-    border-bottom: 1px solid rgba(246, 246, 246, .3);
+    border-bottom: 1px solid rgba(246, 246, 246, .9);
     height:10rem;
     width:100%;
     position:relative;
@@ -155,7 +159,7 @@ color:grey
 }
 
 .MyBlog-list-body{
-    margin:0.00001rem 1rem 0.3rem 1rem;
+    padding:1rem;
 }
 
 .MyBlog-list-body_content{
@@ -213,13 +217,6 @@ width: 1.3em;
 }
 
 .icon-b{
-margin-right:0.2rem
-}
-
-.icon-sz{
-width: 0.7em;
-height: 0.7em;
-margin-bottom:0.08rem;
 margin-right:0.2rem
 }
 
