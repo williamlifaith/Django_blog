@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+
+{% block title %}{{ poem.title }}{% endblock %}
+
+{% block peom_active %}active{% endblock %}
+
+
+{% block content %}
+
+<section class="Myblog-main-middle">
+    <article class="MyBlog-detail poem-detail">
+        <div class="MyBlog-detail-body poem-body">
+            <h1 class="MyBlog-detail_title poem-title">{{ poem.title}}</h1>
+            <h1 class="poem-author">{{ poem.author }}</h1>
+
+            <p class="MyBlog-detail_content poem-content">{{ poem.content|safe }}</p>
+
+        </div>
+    </article>
+</section>
+
+{% endblock %}
+
+

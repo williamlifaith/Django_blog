@@ -1,13 +1,12 @@
 import datetime
-from django.shortcuts import render_to_response
-from blog.models import Poem
+from django.shortcuts import render_to_response, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from read_statistics.utils import get_seven_days_read_data, get_today_hot_data, get_yesterday_hot_data
 from django.contrib.contenttypes.models import ContentType
 from django.core.cache import cache
 from django.utils import timezone
 from django.db.models import Sum
-from blog.models import Blog
+from blog.models import Blog, Poem
 
 
 def get_7_days_hot_blogs():
@@ -39,7 +38,7 @@ def home_page(request):
     hot_blogs_for_7_days = cache.get('hot_blogs_for_7_days')
     if hot_blogs_for_7_days is None:
         hot_blogs_for_7_days = get_7_days_hot_blogs()
-        cache.set('hot_blogs_for_7_days',hot_blogs_for_7_days,3600)
+        cache.set('hot_blogs_for_7_days', hot_blogs_for_7_days, 3600)
 
     context = {}
     context['dates'] = dates
@@ -49,3 +48,19 @@ def home_page(request):
     context['yesterday_hot_data'] = get_yesterday_hot_data(blog_content_type)
     context['hot_blogs_for_7_days'] = hot_blogs_for_7_days
     return render_to_response('home.html', context)
+
+
+def poem_list(request):
+    poems_list = Poem.objects.all()
+    context = {}
+    context['poems_list'] = poems_list
+    return render_to_response('poem_list.html',context)
+
+
+def poem_detail(request, poem_pk):
+    poem = get_object_or_404(Poem, pk=poem_pk)
+    context = {}
+    context['poem'] = poem
+    return render_to_response('poem_detail.html', context)
+
+

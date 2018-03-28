@@ -27,7 +27,7 @@ SECRET_KEY = 'a4+_fqqpry^7&siyc6ydy2%q7#wq1kgivu$$zz%v4m%+o)vqsp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['williamlifaith.pythonanywhere.com']
 
 
 # Application definition
@@ -85,11 +85,10 @@ WSGI_APPLICATION = 'mysite2.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'mysite2',
-        'USER': 'william',
-        'PASSWORD': '19850907a',
-        'HOST': '127.0.0.1',
-        'PORT': '3306',
+        'NAME':'williamlifaith$Django_blog',
+        'USER': 'williamlifaith',
+        'PASSWORD': 'YW520JC!@',
+        'HOST': 'williamlifaith.mysql.pythonanywhere-services.com',
     }
 }
 
@@ -124,13 +123,14 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = False
+USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR,'static')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'static'),
 ]
