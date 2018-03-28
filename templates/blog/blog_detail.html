@@ -32,14 +32,14 @@
     <div class="blog-more">
         <p class="article-number">Previous:
             {% if previous_blog %}
-            <a href="{% url 'blog_detail' previous_blog.pk %}">{{ previous_blog.title }}</a>
+            <a class="previous" href="{% url 'blog_detail' previous_blog.pk %}">{{ previous_blog.title }}</a>
             {% else %}
             No more blog
             {% endif %}
         </p>
         <p class="article-number">Next:
             {% if next_blog %}
-            <a href="{% url 'blog_detail' next_blog.pk %}">{{ next_blog.title }}</a>
+            <a class="previous" href="{% url 'blog_detail' next_blog.pk %}">{{ next_blog.title }}</a>
             {% else %}
             No more blog
             {% endif %}

@@ -41,14 +41,7 @@ padding-top:0.7rem}
     color: #4c4c4c;
 }
 
-.article-number,Myblog-main-right_type{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-border-bottom: 1px solid rgba(246, 246, 246, .9);
-}
-
-.article-number a,
+.article-number,a,
 .Myblog-main-right_type span{
 color:grey}
 
@@ -56,11 +49,15 @@ color:grey}
 padding:1rem;}
 
 .article-number a:hover,
+.poem-a-day a:hover,
 .MyBlog-list-body_title:hover,
 .MyBlog-list-body_type a:hover,
 .Myblog-main-right a:hover{
  color: #9fd1a3;
 }
+
+.homepage-article-number{
+padding-top:2rem}
 
 .Myblog-main-right ul{
 padding-top:0.5rem;
@@ -103,6 +100,9 @@ margin-left:1rem;
 
 .Myblog-main-right ul li{
 margin-bottom:0.7rem;
+}
+
+.previous{color:black;
 }
 
 .MyBlog-header{
@@ -184,9 +184,15 @@ text-align:center;
 color:grey;
 }
 
+.poem-a-day{
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
 .Myblog-main-right_type h1{
 padding:1rem 1rem 0 1rem;
-color:grey
+color:grey;
 }
 
 .MyBlog-list:hover {
@@ -341,9 +347,10 @@ border-bottom: 1px solid rgba(246, 246, 246, .9);
 height:0.05rem;
 padding-bottom:1.5rem}
 
-.Myblog-main-middle-nav span{
-margin-left:1rem;
+.Myblog-main-middle-nav,span{
+margin-left:0.5rem;
 font-size:0.8rem;
+margin-top:0.5rem;
 }
 
 

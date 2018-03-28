@@ -14,8 +14,8 @@
 {% block content %}
 {% for poem in poem_list %}
 <article class="Myblog-home-poem">
-        <div class="Myblog-main-middle-nav article-number">
-            <span><a href="/poem/">Poem-A-Day</a></span>
+        <div class="Myblog-main-middle-nav poem-a-day">
+            <h1 class=""><a href="/poem/">Poem-A-Day</a></h1>
 </div>
     <h5>{{poem.title}}</h5>
 
@@ -74,7 +74,7 @@
 <section class="hot_read_data Myblog-main-right">
     <div class="Myblog-main-right_type">
      <!-- 今天24小时内的热门博客-->
-    <span class="article-number">MOST VIEWED TODAY</span>
+    <h1 class="homepage-article-number">Most Viewed Today</h1>
     <ul>
         {% for hot_data in today_hot_data %}
      <li><a href="{% url 'blog_detail' hot_data.content_object.pk %}">
@@ -87,7 +87,7 @@
 
     <div class="Myblog-main-right_type">
     <!-- 昨天热门博客-->
-    <span class="article-number">Most Viewed Yesterday</span>
+        <h1 class="homepage-article-number">Most Viewed Yesterday</h1>
     <ul>
         {% for hot_data in yesterday_hot_data %}
      <li><a href="{% url 'blog_detail' hot_data.content_object.pk %}">
@@ -101,7 +101,7 @@
       <div class="Myblog-main-right_type">
         <!-- 一周热门博客-->
 
-        <span class="article-number">Most Viewed This Week</span>
+        <h1 class="homepage-article-number">Most Viewed This Week</h1>
     <ul>
         {% for hot_blog in hot_blogs_for_7_days %}
      <li><a href="{% url 'blog_detail' hot_blog.id %}">
